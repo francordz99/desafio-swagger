@@ -14,6 +14,7 @@ import mainRoutes from "./routes/main.routes.js";
 import usersRoutes from "./routes/users.routes.js";
 import messagesRoutes from "./routes/messages.routes.js";
 import productsRoutes from "./routes/products.routes.js";
+import swaggerUI from "swagger-ui-express";
 
 import testingRoutes from "./routes/testing.routes.js"; // Mocking Y Otros Tests
 
@@ -22,6 +23,7 @@ import { connectDB } from "./config/databaseConfig.js";
 import { engine } from "express-handlebars";
 import { errorHandler } from "./middlewares/errorHandler.js";
 import { logger } from "./helpers/loggerConfig.js";
+import { swaggerSpecs } from "./config/swaggerConfig.js";
 
 // Express & Socket
 
@@ -63,7 +65,10 @@ app.use('/', messagesRoutes);
 app.use('/', usersRoutes);
 app.use('/', productsRoutes);
 
+// Rutas De Pruebas
+
 app.use('/', testingRoutes); // Mocking Y Otros Tests
+app.use("/swaggerDocs", swaggerUI.serve, swaggerUI.setup(swaggerSpecs)); // Swagger Para Documentacion
 
 // Manejo De Errores
 
